@@ -8,8 +8,6 @@ import java.util.Date;
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
-import org.apache.commons.lang.StringUtils;
-
 public class LogFormatter
   extends Formatter
 {
@@ -29,15 +27,15 @@ public class LogFormatter
     builder.append("[");
     {
       final String threadId = Integer.toHexString(record.getThreadID());
-      builder.append(leftPad(threadId, 8, '0'));
+      leftPad(builder, threadId, 8, '0');
     }
     builder.append("] ");
     builder.append("[");
-    builder.append(rightPad(record.getLevel().getName(), 7, ' '));
+    rightPad(builder, record.getLevel().getName(), 7, ' ');
     builder.append("] ");
     final String loggerName = record.getLoggerName();
     builder.append("[");
-    builder.append(rightPad(loggerName, 40, ' '));
+    rightPad(builder, loggerName, 40, ' ');
     builder.append("] ");
     {
       final String message = record.getMessage();
@@ -80,13 +78,23 @@ public class LogFormatter
     return sw.toString();
   }
 
-  private static String leftPad(String str, int size, char padChar)
+  private static void leftPad(final StringBuilder builder, final String str, final int size, final char padChar)
   {
-    return StringUtils.leftPad(str, size, padChar);
+    pad(builder, size - str.length(), padChar);
+    builder.append(str);
   }
 
-  private static String rightPad(String str, int size, char padChar)
+  private static void rightPad(StringBuilder builder, String str, int size, char padChar)
   {
-    return StringUtils.rightPad(str, size, padChar);
+    builder.append(str);
+    pad(builder, size - str.length(), padChar);
+  }
+
+  private static void pad(StringBuilder builder, int count, char padChar)
+  {
+    for (int i = count; i > 0; i--)
+    {
+      builder.append(padChar);
+    }
   }
 }

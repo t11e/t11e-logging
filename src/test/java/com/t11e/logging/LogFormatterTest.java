@@ -19,5 +19,10 @@ public class LogFormatterTest
     Assert.assertEquals(
       "[19691231 19:00:00,000] [deadbeef] [FINE   ] [MyLogger                                ] Test log message\n",
       formatter.format(record));
-  }
+
+    record.setLevel(Level.FINEST);
+    Assert.assertEquals(
+      "[19691231 19:00:00,000] [deadbeef] [FINEST ] [MyLogger                                ] Test log message\n",
+      formatter.format(record));
+}
 }
