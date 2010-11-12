@@ -21,8 +21,9 @@ public class LogFormatterTest
       formatter.format(record));
 
     record.setLevel(Level.FINEST);
+    record.setThreadID(0xabc);
     Assert.assertEquals(
-      "[19691231 19:00:00,000] [deadbeef] [FINEST ] [MyLogger                                ] Test log message\n",
+      "[19691231 19:00:00,000] [00000abc] [FINEST ] [MyLogger                                ] Test log message\n",
       formatter.format(record));
-}
+  }
 }
