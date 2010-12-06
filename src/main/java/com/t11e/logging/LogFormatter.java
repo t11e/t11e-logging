@@ -35,7 +35,7 @@ public class LogFormatter
     builder.append("] ");
     final String loggerName = record.getLoggerName();
     builder.append("[");
-    rightPad(builder, loggerName, 40, ' ');
+    builder.append(loggerName);
     builder.append("] ");
     {
       final String message = record.getMessage();
